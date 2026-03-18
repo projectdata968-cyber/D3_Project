@@ -89,6 +89,22 @@ def main():
         # 5. Multi-Segment Inference
         scores = []
         print(f"[*] Running multi-segment analysis ({args.segments} segments)...")
+        print(f"[*] Loading frames from: {frames_path}")
+        
+        # Check if frames were extracted
+        if not os.path.exists(frames_path):
+            print(f"[!] Error: Frames directory not found: {frames_path}")
+            print(f"[!] Frame extraction may have failed.")
+            shutil.rmtree(temp_dir)
+            continue
+        
+        frame_count = len(os.listdir(frames_path))
+        if frame_count == 0:
+            print(f"[!] Error: No frames extracted from video")
+            shutil.rmtree(temp_dir)
+            continue
+        
+        print(f"[*] Found {frame_count} frames")
         
         with torch.no_grad():
             for i in range(args.segments):
@@ -101,7 +117,7 @@ def main():
                     _, _, score_tensor = model(video_tensor)
                     scores.append(score_tensor.cpu().item())
                 except Exception as e:
-                    print(f"[!] Warning: Segment {i} failed: {e}")
+                    print(f"[!] Warning: Segment {i} failed: {type(e).__name__}: {e}")
 
         if not scores:
             print("[!] Skipped (no valid segments)")

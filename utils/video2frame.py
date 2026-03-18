@@ -39,8 +39,8 @@ def process_video(video_path, dataset_path):
                     start_time = 0
                 else:
                     start_time = math.floor(random.uniform(0, video_length-3))
-                os.makedirs(os.path.dirname(image_path), exist_ok=True)
-                os.system(f"cd {image_path} | ffmpeg -loglevel quiet -ss {start_time} -t {duration} -i {video_path} -vf fps={frame_rate} {image_path}%d.jpg")
+                os.makedirs(image_path, exist_ok=True)
+                os.system(f"ffmpeg -loglevel quiet -ss {start_time} -t {duration} -i {video_path} -vf fps={frame_rate} {image_path}%d.jpg")
             except Exception as e:
                 with open('error.log', 'a') as f:
                     f.write(f"{video_name} error\n")

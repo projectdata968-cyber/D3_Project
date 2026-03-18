@@ -22,8 +22,15 @@ def set_preprocessing():
     ])
 
 def read_video(folder_path, trans, num_frames=16, sampling_mode='consecutive'):
+    # Validate folder exists and contains frames
+    if not os.path.exists(folder_path):
+        raise RuntimeError(f"Frame folder not found: {folder_path}")
+    
     image_paths = sorted(os.listdir(folder_path), key=get_number_from_filename)
     total_frames = len(image_paths)
+    
+    if total_frames == 0:
+        raise RuntimeError(f"No frames found in {folder_path}. Frame extraction may have failed.")
 
     if total_frames < num_frames:
         # Fallback if video is too short: use linspace but repeat frames if necessary
