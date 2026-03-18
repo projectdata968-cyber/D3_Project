@@ -123,4 +123,6 @@ If you find this repository helpful, please consider citing it in your research:
   year={2025}
 }
 ```
-
+Updated Work:
+To run inference.py for prediction add a folder ***frames*** in Genvideo folder.
+***python inference.py --video /workspaces/D3_Project/GenVideo/video/social_media_video_sample/kling_1_6_5.mp4*** run the cmd in the terminal.
