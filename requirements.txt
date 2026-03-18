@@ -1,0 +1,12 @@
+albumentations==2.0.8
+moviepy==1.0.3
+numpy
+opencv_python
+opencv_python_headless
+pandas
+scikit_learn
+timm==1.0.20
+torch
+torchvision
+tqdm==4.67.1
+transformers==4.57.0
